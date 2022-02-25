@@ -15,11 +15,9 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/loggedin", (req, res) => {
-  res.json(req.user);
+  console.log(req.session);
+  res.json(req.session.user);
 });
-
-
-
 
 
 //--------------------------------SIGNUP-----------------------------------------//
@@ -59,7 +57,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
       })
       .then((user) => {
         // Bind the user to the session object
-        req.session.user = user;
+        req.user = user;
         res.status(201).json(user);
       })
       .catch((error) => {
@@ -78,9 +76,8 @@ router.post("/signup", isLoggedOut, (req, res) => {
 });
 
 
-
-
 //--------------------------------LOGIN-----------------------------------------//
+
 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { username, password } = req.body;
@@ -100,7 +97,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ username })
+  User.findOne({ username }).populate("posts")
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
@@ -113,8 +110,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           return res.status(400).json({ errorMessage: "Wrong credentials." });
         }
         req.session.user = user;
+        console.log(req.session);
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.json(user);
+        return res.status(200).json(user);
       });
     })
 
@@ -122,11 +120,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
       // you can just as easily run the res.status that is commented out below
       next(err);
-      // return res.status(500).render("login", { errorMessage: err.message });
+      return res.status(500).render("login", { errorMessage: err.message });
     });
 });
-
-
 
 
 //--------------------------------LOGOUT-----------------------------------------//

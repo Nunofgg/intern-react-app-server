@@ -57,14 +57,15 @@ module.exports = (app) => {
       }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365,
-        sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
+        // sameSite: "none",
+        secure: false,
+        httpOnly: true,
       },
     })
   );
 
-  app.use((req, res, next) => {
-    req.user = req.session.user || null;
-    next();
-  });
-};
+  // app.use((req, res, next) => {
+  //   req.user = req.session.user || null;
+  //   next();
+  // });
+ };
