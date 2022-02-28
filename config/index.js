@@ -56,7 +56,7 @@ module.exports = (app) => {
         maxAge: 1000 * 60 * 60 * 24 * 365,
         // sameSite: "none",
         secure: true,
-        httpOnly: false,
+        httpOnly: true,
       },
     })
   );
