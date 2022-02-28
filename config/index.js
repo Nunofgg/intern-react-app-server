@@ -32,7 +32,11 @@ module.exports = (app) => {
 
   // controls a very specific header to pass headers from the frontend
   // ! please configure the cors `origin` key so that you can accept the requests wherever they might be coming from
-  app.use();
+  app.use(
+    cors({
+      credentials: 'include',
+    })
+  );
 
   // In development environment the app logs
   app.use(logger("dev"));
