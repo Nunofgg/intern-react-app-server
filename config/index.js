@@ -2,11 +2,9 @@
 const express = require("express");
 
 // ℹ️ Responsible for the messages you see in the terminal as requests are coming in
-// https://www.npmjs.com/package/morgan
 const logger = require("morgan");
 
 // ℹ️ Needed when we deal with cookies (we will when dealing with authentication)
-// https://www.npmjs.com/package/cookie-parser
 const cookieParser = require("cookie-parser");
 
 // ℹ️ Needed to accept from requests from 'the outside'. CORS stands for cross origin resource sharing
@@ -14,11 +12,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 // ℹ️ Session middleware for authentication
-// https://www.npmjs.com/package/express-session
 const session = require("express-session");
 
 // ℹ️ MongoStore in order to save the user session in the database
-// https://www.npmjs.com/package/connect-mongo
 const MongoStore = require("connect-mongo");
 
 // Connects the mongo uri to maintain the same naming structure

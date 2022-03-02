@@ -8,6 +8,8 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const Post = require("../models/Post.model");
 const User = require("../models/User.model");
 
+
+// Gets the list of posts from the user
 router.get("/posts", isLoggedIn, async (req, res) => {
     const currentUser = req.session.user;
     try{
@@ -20,6 +22,7 @@ router.get("/posts", isLoggedIn, async (req, res) => {
 });
 
 
+// Create a new post for the user
 router.post("/post", isLoggedIn, async (req, res) => {
     const { imageUrl, quote, like } = req.body;
     try {
@@ -36,6 +39,7 @@ router.post("/post", isLoggedIn, async (req, res) => {
 });
 
 
+// Edit the user post you want
 router.put("/post/:id", isLoggedIn, async (req, res) => {
     const { imageUrl, quote, like } = req.body;
     const postId = req.params.id;
@@ -53,6 +57,7 @@ router.put("/post/:id", isLoggedIn, async (req, res) => {
 });
 
 
+// Delete the user post
 router.delete("/post/:id", isLoggedIn, async (req, res) => {
     const postId = req.params.id;
     try {
