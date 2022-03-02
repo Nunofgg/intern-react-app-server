@@ -36,6 +36,8 @@ module.exports = (app) => {
     cors({
       credentials: true,
       origin: process.env.ORIGIN,
+      methods: ['GET', 'PUT', 'POST', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Origin'],
     })
   );
 
